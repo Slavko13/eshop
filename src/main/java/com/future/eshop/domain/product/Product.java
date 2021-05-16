@@ -39,4 +39,8 @@ public class Product {
     @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = Subcategory.class)
     private Subcategory subcategory;
 
+    @JoinColumn(name = "brand_id")
+    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = Brand.class)
+    private Brand brand;
+
 }
