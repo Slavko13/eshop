@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserRepo extends CrudRepository<EshopUser, Integer> {
 
-    Optional<EshopUser> findByUserName(String userName);
+    Optional<EshopUser> findByUsername(String userName);
     Iterable<EshopUser> findAll();
     Iterable<EshopUser> findAllByRoleId(Integer roleID);
 

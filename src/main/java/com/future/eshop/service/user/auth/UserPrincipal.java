@@ -23,7 +23,7 @@ public class UserPrincipal implements UserDetails {
         this.username = eshopUser.getUsername();
         this.authorities = eshopUser.getRole().getAuthorities()
                 .stream().map(this::getGrantedAuthority).collect(Collectors.toSet());;
-        this.enabled = eshopUser.getUserStatus().equals(UserStatus.ACTIVE);
+        this.enabled = eshopUser.getUserStatus().equals(UserStatus.ACTIVE) || eshopUser.getUserStatus().equals(UserStatus.NOT_CONFIRMED);
     }
 
     private SimpleGrantedAuthority getGrantedAuthority(Authority authority) {
