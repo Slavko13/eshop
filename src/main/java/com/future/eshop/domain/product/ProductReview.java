@@ -9,7 +9,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "product_review")
 public class ProductReview {
@@ -37,7 +36,7 @@ public class ProductReview {
     private String description;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = EshopUser.class)
+    @ManyToOne(targetEntity = EshopUser.class)
     private EshopUser eshopUser;
 
 }

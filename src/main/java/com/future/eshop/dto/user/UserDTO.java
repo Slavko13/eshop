@@ -1,5 +1,6 @@
 package com.future.eshop.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
 
     private String username;

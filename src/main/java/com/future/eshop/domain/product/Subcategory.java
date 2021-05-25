@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "subcategory")
 public class Subcategory {
 
@@ -26,7 +25,7 @@ public class Subcategory {
 
     private String code;
 
-    @OneToMany(mappedBy = "subcategory")
+    @OneToMany(mappedBy = "subcategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Product> subcategories;
 
 

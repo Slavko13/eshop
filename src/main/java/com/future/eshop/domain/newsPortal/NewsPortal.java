@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @Table(name = "news_portal")
 @Entity
 public class NewsPortal {

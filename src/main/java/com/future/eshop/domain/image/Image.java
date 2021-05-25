@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "image")
 public class Image {
 

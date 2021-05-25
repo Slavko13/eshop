@@ -4,6 +4,7 @@ import com.future.eshop.exceptions.dto.ErrorDetails;
 import com.future.eshop.exceptions.simpleException.BadRequestException;
 import com.future.eshop.exceptions.simpleException.NotAllowedException;
 import com.future.eshop.exceptions.simpleException.NotFoundException;
+import com.future.eshop.exceptions.simpleException.TeapotException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -39,6 +40,13 @@ public class ExceptionResolver extends ResponseEntityExceptionHandler {
         ErrorDetails exceptionResponse = new ErrorDetails(new Date(), ex.getMessage(),
                 request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(TeapotException.class)
+    public final ResponseEntity<ErrorDetails> handleTeapot(Exception ex, WebRequest request) {
+        ErrorDetails exceptionResponse = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.I_AM_A_TEAPOT);
     }
 
 

@@ -21,16 +21,13 @@ public class Role {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Column(name = "role_name")
     private String roleName;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "ROLES_AUTHORITIES",
-            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
+            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "role_name"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITIES_ID", referencedColumnName = "id")
     )
     @JsonManagedReference
