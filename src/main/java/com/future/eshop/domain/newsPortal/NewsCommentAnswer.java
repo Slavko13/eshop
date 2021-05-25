@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @Table(name = "news_comment_answer")
 @Entity
 public class NewsCommentAnswer extends CommentBaseEntity {

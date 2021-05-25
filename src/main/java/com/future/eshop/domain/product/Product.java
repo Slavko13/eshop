@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "image")
 public class Product {
 
@@ -36,11 +35,11 @@ public class Product {
     private Double productRating;
 
     @JoinColumn(name = "subcategory_id")
-    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = Subcategory.class)
+    @ManyToOne(targetEntity = Subcategory.class)
     private Subcategory subcategory;
 
     @JoinColumn(name = "brand_id")
-    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = Brand.class)
+    @ManyToOne(targetEntity = Brand.class)
     private Brand brand;
 
 }

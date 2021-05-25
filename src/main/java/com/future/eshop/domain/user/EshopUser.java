@@ -3,6 +3,7 @@ package com.future.eshop.domain.user;
 
 import com.future.eshop.domain.image.Image;
 import com.future.eshop.domain.product.ProductReview;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "eshop_user")
 @Entity
 @Builder
@@ -43,10 +45,10 @@ public class EshopUser {
     @OneToOne(cascade = CascadeType.PERSIST, targetEntity = Image.class)
     private Image image;
 
-    @OneToMany(mappedBy = "eshopUser")
+    @OneToMany(mappedBy = "eshopUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ProductReview> productReviews;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = Role.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 

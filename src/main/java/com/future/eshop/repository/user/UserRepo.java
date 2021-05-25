@@ -7,9 +7,10 @@ import java.util.Optional;
 
 public interface UserRepo extends CrudRepository<EshopUser, Integer> {
 
-    Optional<EshopUser> findByUsername(String userName);
+    Optional<EshopUser> findByUsername(String username);
     Iterable<EshopUser> findAll();
-    Iterable<EshopUser> findAllByRoleId(Integer roleID);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 
 
 

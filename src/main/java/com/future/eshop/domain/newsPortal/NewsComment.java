@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Table(name = "news_comment")
 @Entity
 public class NewsComment extends CommentBaseEntity {

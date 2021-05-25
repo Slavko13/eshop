@@ -3,6 +3,7 @@ package com.future.eshop.service.product;
 import com.future.eshop.domain.product.Product;
 import com.future.eshop.dto.general.PageDTO;
 import com.future.eshop.dto.product.ProductDTO;
+import com.future.eshop.exceptions.simpleException.NotFoundException;
 import com.future.eshop.repository.product.ProductRepo;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,12 @@ public class ProductCrudServiceImpl implements ProductCrudService {
 
     @Override
     public Product getProductByID(Integer productID) {
-        return null;
+        return productRepo.findById(productID).orElseThrow(() -> new NotFoundException("{ProductCrudServiceImpl.getProductByID.NotFound}"));
     }
 
     @Override
     public void deleteProductByID(Integer productID) {
-
+        productRepo.deleteById(productID);
     }
 
     @Override
@@ -39,6 +40,9 @@ public class ProductCrudServiceImpl implements ProductCrudService {
 
     @Override
     public Product addProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        
+
         return null;
     }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "brand")
 public class Brand {
 
@@ -22,10 +21,10 @@ public class Brand {
     private Integer brandID;
 
     @JoinColumn(name = "image_id")
-    @OneToOne(cascade = CascadeType.PERSIST, targetEntity = Image.class)
+    @OneToOne(targetEntity = Image.class)
     private Image image;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Product> products;
 
     private String name;
