@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "image")
+@Table(name = "product")
 public class Product {
 
     @Id

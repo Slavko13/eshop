@@ -11,7 +11,12 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "subcategory")
+@NoArgsConstructor
 public class Subcategory {
+
+    public Subcategory(Integer subcategoryID) {
+        this.subcategoryID = subcategoryID;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +31,7 @@ public class Subcategory {
     private String code;
 
     @OneToMany(mappedBy = "subcategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Product> subcategories;
+    private List<Product> products;
 
 
 

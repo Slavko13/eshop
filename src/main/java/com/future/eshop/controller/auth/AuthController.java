@@ -8,6 +8,8 @@ import com.future.eshop.dto.user.UserDTO;
 import com.future.eshop.dto.user.UsernameSuggest;
 import com.future.eshop.service.user.auth.AuthorizationService;
 import com.future.eshop.service.user.auth.RegistrationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,23 +27,27 @@ public class AuthController {
 
 
     @PostMapping("/signUp")
+    @CrossOrigin
     public EshopUser registerUser(@RequestBody UserDTO userDTO) {
         return registrationService.addUser(userDTO);
     }
 
     @PostMapping("/signIn")
-    public JwtAuthenticationResponse signIn(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
-        return authorizationService.signIn(authenticationRequestDto);
+    @CrossOrigin
+    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
+        return new ResponseEntity<>(authorizationService.signIn(authenticationRequestDto), HttpStatus.OK);
     }
 
     @GetMapping("/generate/password")
-    public String generatePassword() {
-        return registrationService.passwordSuggest();
+    @CrossOrigin
+    public ResponseEntity<String> generatePassword() {
+        return new ResponseEntity<>(registrationService.passwordSuggest(), HttpStatus.OK);
     }
 
     @GetMapping("/generate/username")
-    public UsernameSuggest generateUsername(@RequestParam String username) {
-        return registrationService.checkAndSuggestNewUsername(username);
+    @CrossOrigin
+    public ResponseEntity<UsernameSuggest> generateUsername(@RequestParam String username) {
+        return new  ResponseEntity<>(registrationService.checkAndSuggestNewUsername(username), HttpStatus.OK);
     }
 
 

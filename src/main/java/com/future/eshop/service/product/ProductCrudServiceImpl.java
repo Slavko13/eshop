@@ -1,10 +1,12 @@
 package com.future.eshop.service.product;
 
 import com.future.eshop.domain.product.Product;
+import com.future.eshop.domain.product.Subcategory;
 import com.future.eshop.dto.general.PageDTO;
 import com.future.eshop.dto.product.ProductDTO;
 import com.future.eshop.exceptions.simpleException.NotFoundException;
 import com.future.eshop.repository.product.ProductRepo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,8 +43,11 @@ public class ProductCrudServiceImpl implements ProductCrudService {
     @Override
     public Product addProduct(ProductDTO productDTO) {
         Product product = new Product();
-        
-
-        return null;
+        BeanUtils.copyProperties(productDTO, productDTO);
+        if (productDTO.getSubCategoryID() != null) {
+            Subcategory subcategory = new Subcategory(productDTO.getSubCategoryID());
+            product.setSubcategory(subcategory);
+        }
+        return productRepo.save(product);
     }
 }
