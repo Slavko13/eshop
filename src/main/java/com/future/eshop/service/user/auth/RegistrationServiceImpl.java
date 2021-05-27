@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -50,14 +51,35 @@ public class RegistrationServiceImpl implements RegistrationService {
     public UsernameSuggest checkAndSuggestNewUsername(String username) {
 
 
-        return null;
+        Boolean userNameExist = userRepo.existsByUsername(username);
+        if (!userNameExist) {
+            return new UsernameSuggest(false);
+        }
+        List<String> usernamesSuggest = new ArrayList<>();
+
+        for(int i = 0; i < 3; i++) {
+            boolean suggestUsernameBoolean = true;
+            while (suggestUsernameBoolean) {
+                String numbers = RandomStringUtils.randomNumeric(2, 4);
+                String specialChar = RandomStringUtils.random(2, 33, 47, false, false);
+                String suggestUsername = username + numbers + specialChar;
+                if (!userRepo.existsByUsername(suggestUsername)) {
+                        usernamesSuggest.add(suggestUsername);
+                        suggestUsernameBoolean = false;
+                    }
+                }
+            }
+        return UsernameSuggest.builder()
+                .usernameExist(false)
+                .freeUsernames(usernamesSuggest)
+                .build();
     }
 
     @Override
     public String passwordSuggest() {
         String upperCaseLetters = RandomStringUtils.random(2, 65, 90, true, true);
         String lowerCaseLetters = RandomStringUtils.random(2, 97, 122, true, true);
-        String numbers = RandomStringUtils.randomNumeric(2);
+        String numbers = RandomStringUtils.randomNumeric(2, 4);
         String specialChar = RandomStringUtils.random(2, 33, 47, false, false);
         String totalChars = RandomStringUtils.randomAlphanumeric(2);
         String combinedChars = upperCaseLetters.concat(lowerCaseLetters)

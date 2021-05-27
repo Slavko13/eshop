@@ -14,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 public class UsernameSuggest {
 
+    public UsernameSuggest(Boolean usernameExist) {
+        this.usernameExist = usernameExist;
+    }
+
     private List<String> freeUsernames;
     private Boolean usernameExist;
 
