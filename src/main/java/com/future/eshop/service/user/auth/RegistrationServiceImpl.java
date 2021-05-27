@@ -1,6 +1,7 @@
 package com.future.eshop.service.user.auth;
 
 import com.future.eshop.domain.user.EshopUser;
+import com.future.eshop.domain.user.Role;
 import com.future.eshop.domain.user.UserStatus;
 import com.future.eshop.dto.user.UserDTO;
 import com.future.eshop.dto.user.UsernameSuggest;
@@ -43,7 +44,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         eshopUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         eshopUser.setUserID(UUID.randomUUID());
         eshopUser.setUserStatus(UserStatus.NOT_CONFIRMED);
-        eshopUser.setRole(roleService.getRoleByName("ROLE_GUEST"));
+        eshopUser.setRole(new Role("ROLE_GUEST"));
         return userRepo.save(eshopUser);
     }
 

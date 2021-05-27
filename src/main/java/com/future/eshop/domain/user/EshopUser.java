@@ -48,7 +48,7 @@ public class EshopUser {
     @OneToMany(mappedBy = "eshopUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ProductReview> productReviews;
 
-    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "role_id")
     private Role role;
 
