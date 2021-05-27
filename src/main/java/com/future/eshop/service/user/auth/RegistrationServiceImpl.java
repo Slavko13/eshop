@@ -70,7 +70,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 }
             }
         return UsernameSuggest.builder()
-                .usernameExist(false)
+                .usernameExist(true)
                 .freeUsernames(usernamesSuggest)
                 .build();
     }
