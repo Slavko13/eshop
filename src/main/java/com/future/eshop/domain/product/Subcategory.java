@@ -1,6 +1,8 @@
 package com.future.eshop.domain.product;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.future.eshop.domain.general.jsonViews.product.SubcategoryView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -21,19 +23,26 @@ public class Subcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(SubcategoryView.SubcategoryMainView.class)
     private Integer subcategoryID;
 
+    @JsonView(SubcategoryView.SubcategoryMainView.class)
     private String title;
 
     @Type(type="text")
+    @JsonView(SubcategoryView.SubcategorySoloView.class)
     private String description;
 
+    @JsonView(SubcategoryView.SubcategorySoloView.class)
     private String code;
 
     @OneToMany(mappedBy = "subcategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JsonView(SubcategoryView.SubcategoryMainView.class)
     private List<Product> products;
 
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Category category;
 
 
 }
