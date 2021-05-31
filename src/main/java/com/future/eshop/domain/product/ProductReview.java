@@ -22,27 +22,27 @@ public class ProductReview {
     @JsonView(ProductReviewView.ProductReviewMainView.class)
     private Integer productReviewID;
 
-    @JsonView(ProductReviewView.ProductReviewMainView.class)
+    @JsonView({ProductReviewView.ProductReviewMainView.class, ProductReviewView.ProductReviewUserView.class})
     private String summary;
 
-    @JsonView(ProductReviewView.ProductReviewSoloView.class)
+    @JsonView({ProductReviewView.ProductReviewSoloView.class , ProductReviewView.ProductReviewUserView.class})
     @Column(name = "overall_rating")
     private byte overallRating;
 
-    @JsonView(ProductReviewView.ProductReviewSoloView.class)
+    @JsonView({ProductReviewView.ProductReviewSoloView.class, ProductReviewView.ProductReviewUserView.class})
     @Column(name = "product_styling")
     private byte productStyling;
 
-    @JsonView(ProductReviewView.ProductReviewSoloView.class)
+    @JsonView({ProductReviewView.ProductReviewSoloView.class, ProductReviewView.ProductReviewUserView.class})
     @Column(name = "product_quality")
     private byte productQuality;
 
-    @JsonView(ProductReviewView.ProductReviewSoloView.class)
+    @JsonView({ProductReviewView.ProductReviewSoloView.class, ProductReviewView.ProductReviewUserView.class})
     @Column(name = "product_durability")
     private byte productDurability;
 
     @Type(type="text")
-    @JsonView(ProductReviewView.ProductReviewSoloView.class)
+    @JsonView({ProductReviewView.ProductReviewSoloView.class, ProductReviewView.ProductReviewUserView.class})
     private String description;
 
     @JoinColumn(name = "user_id")
@@ -51,8 +51,8 @@ public class ProductReview {
     private EshopUser eshopUser;
 
     @JoinColumn(name = "product_id")
+    @JsonView(ProductReviewView.ProductReviewUserView.class)
     @ManyToOne(targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
     private Product product;
 
 }
