@@ -1,6 +1,8 @@
 package com.future.eshop.domain.user;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.future.eshop.domain.general.jsonViews.user.UserView;
 import com.future.eshop.domain.image.Image;
 import com.future.eshop.domain.product.ProductReview;
 import lombok.AllArgsConstructor;
@@ -25,37 +27,47 @@ public class EshopUser {
     @Id
     @GenericGenerator(name = "id", strategy = "uuid2")
     @Column(name = "id")
+    @JsonView(UserView.UserMainView.class)
     private UUID userID;
 
+    @JsonView(UserView.UserMainView.class)
     private String username;
+
+    @JsonView(UserView.UserMainView.class)
     private String password;
 
     @Column(name = "first_name")
+    @JsonView(UserView.UserMainView.class)
     private String firstName;
 
     @Column(name = "second_name")
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     private String secondName;
 
+    @JsonView(UserView.UserMainView.class)
     private String email;
 
     @Column(name = "phone_number")
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     private String phoneNumber;
 
     @JoinColumn(name = "image_id")
-    @OneToOne(cascade = CascadeType.PERSIST, targetEntity = Image.class)
+    @OneToOne()
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     private Image image;
 
-    @OneToMany(mappedBy = "eshopUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "eshopUser", cascade = CascadeType.ALL)
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     private List<ProductReview> productReviews;
 
-    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     @JoinColumn(name = "role_id")
     private Role role;
 
     @Column(name = "user_status")
+    @JsonView({UserView.UserSoloView.class, UserView.UserFullView.class})
     @Enumerated(value = EnumType.STRING)
     private UserStatus userStatus;
-
-
 
 }

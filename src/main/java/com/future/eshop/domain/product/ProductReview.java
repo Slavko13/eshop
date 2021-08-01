@@ -51,8 +51,7 @@ public class ProductReview {
     private EshopUser eshopUser;
 
     @JoinColumn(name = "product_id")
-    @ManyToOne(targetEntity = Product.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
+    @ManyToOne(targetEntity = Product.class)
     private Product product;
 
 }

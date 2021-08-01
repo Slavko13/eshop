@@ -31,7 +31,7 @@ public class Category {
     @JsonView(CategoryView.CategorySoloView.class)
     private String code;
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonView(CategoryView.CategoryMainView.class)
     private List<Subcategory> subcategories;
 

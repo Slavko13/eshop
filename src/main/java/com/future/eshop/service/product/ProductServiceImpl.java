@@ -1,5 +1,6 @@
 package com.future.eshop.service.product;
 
+import com.future.eshop.domain.product.Brand;
 import com.future.eshop.domain.product.Product;
 import com.future.eshop.domain.product.Subcategory;
 import com.future.eshop.dto.general.PageDTO;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductCrudServiceImpl implements ProductCrudService {
+public class ProductServiceImpl implements ProductCrudService, MainPageProductService {
 
     private final ProductRepo productRepo;
 
-    public ProductCrudServiceImpl(ProductRepo productRepo) {
+    public ProductServiceImpl(ProductRepo productRepo) {
         this.productRepo = productRepo;
     }
 
@@ -43,11 +44,18 @@ public class ProductCrudServiceImpl implements ProductCrudService {
     @Override
     public Product addProduct(ProductDTO productDTO) {
         Product product = new Product();
-        BeanUtils.copyProperties(productDTO, productDTO);
+        BeanUtils.copyProperties(productDTO, product);
         if (productDTO.getSubCategoryID() != null) {
-            Subcategory subcategory = new Subcategory(productDTO.getSubCategoryID());
-            product.setSubcategory(subcategory);
+            product.setSubcategory(new Subcategory(productDTO.getSubCategoryID()));
+        }
+        if (productDTO.getBrandID() != null) {
+            product.setBrand(new Brand(productDTO.getBrandID()));
         }
         return productRepo.save(product);
+    }
+
+    @Override
+    public List<Product> getPopularProductsBySubcategory(Integer subcategoryID, Integer limit) {
+        return null;
     }
 }

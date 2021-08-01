@@ -16,6 +16,10 @@ import java.util.List;
 @Table(name = "brand")
 public class Brand {
 
+    public Brand(Integer brandID) {
+        this.brandID = brandID;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,7 +31,7 @@ public class Brand {
     @JsonView(BrandView.BrandMainView.class)
     private Image image;
 
-    @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonView(BrandView.BrandSoloView.class)
     private List<Product> products;
 
@@ -37,7 +41,5 @@ public class Brand {
     @Type(type = "text")
     @JsonView(BrandView.BrandSoloView.class)
     private String description;
-
-
 
 }

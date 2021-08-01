@@ -24,5 +24,6 @@ public class ProductDTO {
     private Date createDate;
     private Double productRating;
     private Integer subCategoryID;
+    private Integer BrandID;
 
 }

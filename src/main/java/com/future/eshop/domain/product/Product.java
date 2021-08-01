@@ -45,18 +45,23 @@ public class Product {
     private Double productRating;
 
     @JoinColumn(name = "subcategory_id")
-    @ManyToOne(targetEntity = Subcategory.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(targetEntity = Subcategory.class)
     @JsonView(ProductView.ProductFullView.class)
     private Subcategory subcategory;
 
     @JoinColumn(name = "brand_id")
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity = Brand.class)
+    @ManyToOne(targetEntity = Brand.class)
     @JsonView(ProductView.ProductMainView.class)
     private Brand brand;
 
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity = ProductReview.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductReview.class, mappedBy = "product")
     @JsonView(ProductView.ProductSoloView.class)
     private List<ProductReview> productReviews;
+
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProductComments.class, mappedBy = "product")
+    @JsonView(ProductView.ProductSoloView.class)
+    private List<ProductComments> productComments;
+
 
 }

@@ -1,4 +1,4 @@
-package com.future.eshop.domain.general;
+package com.future.eshop.domain.general.base.entity;
 
 import com.future.eshop.domain.user.EshopUser;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.util.Date;
 public abstract class CommentBaseEntity {
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.PERSIST, targetEntity = EshopUser.class)
+    @ManyToOne()
     private EshopUser eshopUser;
 
     private Integer rating;

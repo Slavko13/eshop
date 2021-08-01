@@ -6,6 +6,6 @@ public abstract class BrandView {
 
     public interface BrandSoloView extends BrandMainView, ProductReviewView.ProductReviewMainView {}
 
-    public interface BrandFullView extends BrandSoloView {}
+    public interface BrandFullView extends BrandMainView {}
 
 }

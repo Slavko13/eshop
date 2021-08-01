@@ -19,7 +19,6 @@ public class Authority {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "authorities")
-    @JsonBackReference
     private List<Role> roles;
 
 

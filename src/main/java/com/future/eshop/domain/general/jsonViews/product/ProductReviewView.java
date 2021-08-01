@@ -6,7 +6,7 @@ public abstract class ProductReviewView {
 
     public interface ProductReviewSoloView extends ProductReviewMainView {}
 
-    public interface ProductReviewFullView extends ProductReviewSoloView {}
+    public interface ProductReviewFullView extends ProductReviewMainView {}
 
 
 }

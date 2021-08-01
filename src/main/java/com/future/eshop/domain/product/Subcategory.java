@@ -36,12 +36,13 @@ public class Subcategory {
     @JsonView(SubcategoryView.SubcategorySoloView.class)
     private String code;
 
-    @OneToMany(mappedBy = "subcategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "subcategory", cascade = CascadeType.ALL)
     @JsonView(SubcategoryView.SubcategoryMainView.class)
     private List<Product> products;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
     private Category category;
 
 

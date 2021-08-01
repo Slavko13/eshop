@@ -2,6 +2,8 @@ package com.future.eshop.domain.user;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.future.eshop.domain.general.jsonViews.user.RoleView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +24,19 @@ public class Role {
 
     @Id
     @Column(name = "role_name")
+    @JsonView(RoleView.RoleMainView.class)
     private String roleName;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @JsonView(RoleView.RoleSoloView.class)
+    private List<EshopUser> eshopUser;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "ROLES_AUTHORITIES",
             joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "role_name"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITIES_ID", referencedColumnName = "id")
     )
-    @JsonManagedReference
+    @JsonView(RoleView.RoleSoloView.class)
     private List<Authority> authorities;
 
 }
